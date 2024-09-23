@@ -1,0 +1,897 @@
+%---------------------------------
+% Chktex Suppressions
+%---------------------------------
+% Suppress 2: Using ~ spaces
+% chktex-file 2
+
+% Suppress 3: You should enclose the previous parenthesis with `{}'.
+% chktex-file 3
+
+% Suppress 6: No italic correction (`\/') found.
+% chktex-file 6
+
+% Suppress 8: Wrong length of dash may have been used.
+% chktex-file 8
+
+% Suppress 13: Intersentence spacing (`\@') should perhaps be used.
+% chktex-file 13
+
+% cspell:disable
+\documentclass[12pt]{article}
+
+%---------------------------------
+% Layouts and fonts
+%---------------------------------
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+
+\usepackage{lastpage}
+
+\usepackage{mathtools} % should load amsmath
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\usepackage{fontspec} % for custom fonts
+\setmainfont{Arial}
+\usepackage{microtype} % microtypographical extensions for better document kerning
+\usepackage{ulem} % to strikethrough text with the command \sout{text to be striked} and \ul for underline
+\usepackage{xspace} % for proper spacing after commandsß
+\usepackage[dvipsnames, table]{xcolor}
+
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[shortlabels]{enumitem}
+\setlist{leftmargin=2em,labelsep=0.5em,nosep}
+\setlist[itemize]{label=-}
+
+% \usepackage{setspace}
+% \onehalfspacing
+
+%---------------------------------
+% Figures and captions
+%---------------------------------
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{framed}
+\setlength{\FrameSep}{2pt}
+\setlength{\OuterFrameSep}{0pt}
+
+\usepackage{sidecap}    % sideways captions
+\usepackage{subcaption}
+\usepackage[labelfont={bf,footnotesize}, textfont=footnotesize, skip=1pt]{caption}
+% \captionsetup[subfloat]{position=top,singlelinecheck=false,labelfont={normalsize,sf}, labelformat=simple,listofformat=subparens,aboveskip=0pt,parskip=0pt,farskip=-5pt,captionskip=0pt}
+
+%---------------------------------
+% Links and bookmarks
+%---------------------------------
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks,colorlinks=false]{hyperref}
+\usepackage{bookmark}
+\usepackage[all]{hypcap}
+\usepackage[capitalize]{cleveref}
+\newcommand{\crefrangeconjunction}{--}
+
+%---------------------------------
+% Units 
+%---------------------------------
+\usepackage{siunitx}
+\DeclareSIUnit\bar{bar}
+\DeclareSIUnit{\molecule}{molecule}
+\DeclareSIUnit{\molecules}{molecule}
+\DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
+\DeclareSIUnit\Molar{M}
+\sisetup{
+    uncertainty-mode = separate,
+    mode = match, 
+    propagate-math-font = true,
+    reset-math-version = false, 
+    reset-text-family = false,
+    reset-text-series = false, 
+    reset-text-shape = false,
+    text-family-to-math = true, 
+    text-series-to-math = true, 
+    range-phrase = --,
+    list-units = single,
+    range-units = single,
+	group-digits = integer,
+}
+
+
+
+\usepackage[version=4]{mhchem}
+\usepackage{lipsum}
+
+
+%---------------------------------
+% Bibliography settings
+%---------------------------------
+\usepackage[backend=biber, style=chem-acs, maxbibnames=5, url=false, bibstyle=numeric, autocite=superscript, doi=false]{biblatex} %defernumbers=true
+%\DeclareAutoPunctuation{.!?}
+\renewcommand\multicitedelim{\addsemicolon\space}
+%\addbibresource{refs.bib}
+
+\DeclareFieldFormat{journaltitle}{\textit{#1}}
+\renewbibmacro{in:}{}
+
+\defbibheading{bibliography}[\bibname]{\noindent \textbf{#1}\par}
+\renewcommand*{\bibfont}{\small}
+
+\NewBibliographyString{preprint,preprints}
+\DefineBibliographyStrings{english}{%
+  preprint = {Preprint},
+  preprints = {Preprints}
+}
+
+% Add the biorxiv eprint type
+\DeclareFieldFormat{eprint:biorxiv}{BioRxiv \mathchardef\UrlBreakPenalty=100
+\mathchardef\UrlBigBreakPenalty=100\url{#1}}
+%=================================
+
+%---------------------------------
+% Set spacing for section headers 
+%---------------------------------
+\usepackage{titlesec}
+
+% NIH ALPH SECTIONS
+\renewcommand\thesection{\Alph{section}}
+% \renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
+
+%% CUSTOM LENGTH FOR BEFORE (SUB)SECTION VSPACE
+\newlength{\mysecskip}
+\newlength{\myaftersep}
+\setlength{\mysecskip}{0.5ex}
+\setlength{\myaftersep}{0.5ex} % vertical or horizontal sep after section
+
+%%\titlespacing*{command}{left}{before-sep}{after-sep}[right-sep]
+\titlespacing*{\section}{0pt}{2\mysecskip}{\myaftersep}
+\titlespacing*{\subsection}{0pt}{\mysecskip}{\myaftersep}
+\titlespacing*{\subsubsection}{0pt}{\mysecskip}{\myaftersep}
+\titlespacing*{\paragraph}{0pt}{0ex}{1em}
+
+% Define a new length for separation between section label and text
+\newlength{\mysectionlabelsep}
+\setlength{\mysectionlabelsep}{0.5em}
+%\titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code]
+% \titleformat{\section}[runin]{\normalfont\normalsize\bfseries}{\thesection}{\mysectionlabelsep}{}
+\titleformat{\section}[hang]{\normalfont\normalsize\bfseries}{\thesection}{\mysectionlabelsep}{}
+\titleformat{\subsection}[hang]{\normalfont\normalsize\bfseries}{\thesubsection}{\mysectionlabelsep}{}
+\titleformat{\subsubsection}[hang]{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection}{\mysectionlabelsep}{}
+ \titleformat{\paragraph}[runin]{\normalfont\normalsize\itshape}{\theparagraph}{\mysectionlabelsep}{}
+
+\setcounter{secnumdepth}{6}
+
+\newenvironment{tightcenter}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{%
+  \end{center}
+}
+
+%---------------------------------
+% Custom macros
+%---------------------------------
+\newcommand{\needref}[0]{\textcolor{red}{[REFS]}\xspace}
+\newcommand{\wip}[0]{\textcolor{red}{[WIP]}\xspace}
+\newcommand{\thinsim}{{\raise.17ex\hbox{\(\scriptstyle\mathtt{\sim}\)}}}
+
+\definecolor{BurntOrange}{cmyk}{0,0.51,1,0}
+\definecolor{PineGreen}{cmyk}{0.92,0,0.59,0.250}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\definecolor{Fuchsia}{cmyk}{0.47,0.91,0,0.080}
+\newcommand{\Red}[1]{{\color{red}{#1}}}
+\newcommand{\Blue}[1]{{\color{blue}{#1}}}
+\newcommand{\Fuchsia}[1]{{\color{Fuchsia}{#1}}}
+\newcommand{\PineGreen}[1]{{\color{PineGreen}{#1}}}
+\newcommand{\RawSienna}[1]{{\color{RawSienna}{#1}}}
+
+\newcommand{\calcium}{\ce{Ca^{2+}}\xspace}
+\newcommand{\revise}[1]{\textcolor{red}{{#1}}}  % material to revise
+
+\newlength\mystoreparindent
+\newenvironment{myparindent}[1]{%
+\setlength{\mystoreparindent}{\the\parindent}
+\setlength{\parindent}{#1}
+}{%
+\setlength{\parindent}{\mystoreparindent}
+}
+
+
+% cspell:enable
+%---------------------------------
+% Acronyms and glossary 
+%---------------------------------
+% Learn more here: https://www.overleaf.com/learn/latex/glossaries
+% \usepackage[acronym, nonumberlist, nopostdot, nogroupskip, numberedsection=false]{glossaries}
+% \setlength{\glsdescwidth}{0.8\textwidth}
+\usepackage{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+\glssetcategoryattribute{acronym}{nohyperfirst}{true}
+\renewcommand*{\glsdonohyperlink}[2]{%
+ {\glsxtrprotectlinks \glsdohypertarget{#1}{#2}}}
+
+% \makeglossaries{}
+
+\newacronym[shortplural={ROS}, longplural={reactive oxygen species}]{ROS}{ROS}{reactive oxygen species}
+\newacronym{IDP}{IDP}{Individual Development Plan}
+
+%---------------------------------
+% Configure headers and footers
+%---------------------------------
+% Set offset to each header and footer
+\fancyhfoffset{0em}
+% Remove head rule
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+% Clear all header & footer fields
+\fancyhf{}
+\fancyfoot[C]{\scriptsize\textcolor[HTML]{666666}{\thepage{} of \pageref{LastPage}}}
+\fancyfoot[R]{\scriptsize\textcolor[HTML]{666666}{Last updated: \today}}
+
+
+
+%---------------------------------
+% BEGIN DOCUMENT 
+%---------------------------------
+\begin{document}
+\begin{tightcenter}
+  \textbf{Expectations and code of conduct for the ctleelab}\\
+  Christopher T.\@ Lee
+\end{tightcenter}
+\vspace{0.5cm}
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+The main purpose of this document is to state my expectations clearly for all members of our group.
+I hope also that it will shape your thinking about how to be successful in the lab and more generally in science and research.
+The group is just starting and therefore establishing a productive and rigorous group culture is critical.
+The quality of our efforts will be the foundation for all of our collective future careers.
+
+Generally, the better your work, the easier it is for me to get funding: as we are building a track record in the community, it shows to the funding managers that if our group gets funded, we graduate very good people, produce good papers, showcase their funded work at conferences, and so on.
+That being said, \textbf{we are collectively responsible for ensuring that the taxpayer dollars that fund our research program are well justified and well spent}: I consider this when thinking of conference travel for us, equipment purchases, and other expenditures.
+
+I take the commitment of mentoring each and every one of your seriously.
+First and foremost, I want you all to be happy while here, and wherever life takes you (professionally and personally).
+I believe this needs a plan (we do \glspl{IDP} annually) and a clear set of expectations which follow.
+
+\textbf{You are responsible for your success.
+  You need to set yourself up to be as successful as possible.
+  Others can help, but no one can do it for you.
+}
+
+\cref{sec:practical-tips} provides a two page succinct guide for things to keep in mind as your pursue science.
+
+\section{Research}
+\subsection{Research goals}
+
+The shared scientific goal for all of us is to make progress in our area of research.
+Progress is quantified as new knowledge, usually disseminated in the form of a peer-reviewed journal or conference publication.
+When people tell you, papers are the most important research currency, they are not joking.
+All of us, including myself are evaluated for our research productivity.
+Everything becomes easier when we produce top research: writing recommendation letters, finding jobs, winning prizes, stipends and fellowships, acquisition of funding, being invited to give talks, the list goes on.
+Below, I break down in this goal into specifics depending on the training stage.
+
+\subsubsection{Graduate Student working towards a Doctorate}
+
+As a rough rule of thumb, in the field of computational biophysics, a good Ph.D.\@ thesis is expected to have a minimum of three peer-reviewed first-author research papers.
+Each of these papers needs to showcase your intellectual ownership of a research contribution from start to finish.
+We will also expand on your research through collaborations, which are essential to solve hard problems.
+These papers together should form a body of work which stands alone and demonstrates the new knowledge you have generated (i.e., your thesis).
+Along the way, I expect you to develop the ability to communicate (written and verbal) clearly through talks and text.
+
+The actual number of papers may be more or less depending on the maturity of the research problems, and sophistication of the methods you are using.
+Keep in mind that a solid body of work is important for your long-term career goals regardless of your predilection for industry or academia.
+
+Towards the end of your Ph.D., you and I will have identified future research directions where your research could have gone if you had more time.
+To ensure that your research has a lasting impact, I may ask you to help write a research proposal about these directions, which can help provide funding for the next student, just like you had when you entered.
+Similarly, you may be asked to work with and train new students in the lab.
+This is a great learning and resume-building opportunity.
+
+\subsubsection{Graduate Student working towards an Master's}
+A good M.S.\@ thesis should have at least one first-author, high-quality research paper, preferably in a peer-reviewed journal.
+
+\subsubsection{Undergraduate and other junior researchers}
+Undergraduate and junior researchers are expected to work with their graduate student/postdoc partners to contribute to a research paper.
+If an undergrad is interested in leading their own project, they should come talk to me and we can discuss setting this up.
+
+\subsubsection{Postdoctoral fellows}
+Postdocs have 100\% research appointments, and given their prior training and experience in writing papers, are expected to publish \qtyrange{1}{2} high-quality first-authored papers a year at a minimum, plus additional collaborations if they arise.
+This is somewhat of an unspoken rule in the academic community when assessing a Postdocs' or early Assistant Professors' output.
+Since an initial postdoc contract is for two years, this is the best way I can evaluate contract renewal possibilities.
+Additionally, I may ask you to participate in writing research grants and mentoring students of all levels, which is also a good resume-building opportunity.
+
+\subsection{Training and career goals}
+
+I encourage all of you, no matter how early in the training process, to think about your career goals.
+Be it academia, industry, or other research (non-research) sectors, \emph{it is your career and you should be thinking about it.
+}
+You should also be communicating your goals with me often.
+Without a clear objective function, I cannot mentor and advise you on how to get there.
+You do not have to have figured out your entire life, but you should have a general sense of direction of what you are working towards.
+
+Beyond deriving new knowledge, the process of research is also about developing expertise in specific areas and methods.
+This expertise is your value proposition (i.e., what you bring to the table) for a future employer.
+Please consider the skills you are developing and your goals, as you choose research projects and complete your \glspl{IDP}.
+Discuss opportunities for internships, networking events, etc. with me as needed.
+
+\subsection{How do I Choose a Project?}
+This is perhaps the hardest of them all.
+In the beginning, especially for \textbf{Ph.D. students}, I will design with you a very clear project that will teach you the ropes.
+At this stage, and by choosing my research group, you are trusting my experience that this is a project worth working on.
+Over time, as you are keeping pace with the academic literature in your research area and as you may have hit obstacles in your own research, it is ideal for you to come up with ideas of your own.
+We will then discuss them and find a next project, and so on and so on.
+For \textbf{postdocs} who are funded 100\% on grants, the project is defined within the scope of that grant.
+Within the requirements of the grant, we will agree on projects based on mutual interest.
+You are always welcome to, and should, develop your own ideas.
+Please discuss their fit with me, so I may try to support you in the best ways possible.
+Given their increased scientific experience, postdocs are encouraged to have at least two projects in case one fails.
+
+Scientifically, in the field of modeling biological processes, we chose projects based on available experimental data and potentially a missing piece of the puzzle that math can fill.
+The value of these models lies in how well they agree with current experiments and their predictive capability.
+If biology and details associated with biology are not of interest to you, then you will really struggle in our group.
+Some examples of questions that models can address, ``What is the energy landscape of\ldots?
+'', ``How does force from X on Y regulate Z?'', ``What are the dynamics of\ldots?''.
+Projects that result from parameter variations in simulations but not necessarily addressing a biological question are hard to publish.
+They may not be meaningful in all cases.
+In our area, high-quality work usually makes a mathematical, physics-based, technical (computing method or numerical scheme), or biological advance.
+
+There are also some practical considerations in the research endeavor.
+While I will always try to strive to match you with projects as close to your interests as possible, our positions are supported by grants, and thus, we must work on projects that are funded.
+Typically, I will obtain funding for a specific idea, then proceed with hiring personnel/trainees.
+At UCSD, I have to prove that I have 5 years of funding ear marked for each student I hire.
+This means that I have to have a set of funded projects before I hire you.
+While there is some leniency in project specifics, we are beholden to our commitments to the funding agency/foundation and cannot deviate too far.
+I aim to be transparent about the funding situation and the rationale for choices of projects.
+
+\section{Building a Solid Research Process}
+
+\subsection{Reading}
+
+Read a lot of papers.
+Half of your reading should be directly related to your current project, and the other half should be potentially related to your current or future research.
+From time-to-time it is good to also read papers you think are interesting from outside of your area of research.
+Reading reviews is a good way to get a sense of the field.
+Although if a claim is critical to your projects, I encourage you to chase down the original report.
+
+Reading papers should be an active process.
+Train yourself to think critically about each paper you read.
+One approach is to take notes on each paper's main contributions, any ideas or tricks, criticisms, connections to your work, broader implications, and questions you have.
+Also consider the writing style of each paper you read.
+What did you enjoy?
+What was confusing?
+Were the figures effective?
+Are there strategies you can incorporate into your own writing?
+In studying the writing of others, you can improve your own writing.
+
+To keep track of these notes, use a reference manager (I recommend Zotero or Paperpile).
+Both recommended options integrate well with biblatex/bibtex and the latex workflow.
+
+\textbf{Read all papers that your colleagues in our group are writing!}
+It is a sign of interest and collegiality, and helps you understand our group's work better.
+
+\subsection{Writing}
+We want our papers to be read by as as many people as possible, and have a lasting impact on the field.
+To achieve this goal requires practice.
+
+Writing is part of active research and thinking.
+The more you write, the more you have to think about what you are doing and why are you doing it.
+Keeping a lab notebook in the form of a technical report document is a good practice.
+This may be accompanied by a set of slides which you can show me each week to go over results and progress.
+Make sure you string a story together, during which you will learn how to present.
+
+For all of your writing, I expect good English and grammar.
+There are many online tools available such that there is no excuse for having badly construed sentences, missing punctuation, etc.
+
+Documents prepared using Latex are the only thing I will accept.
+\emph{All of the group's manuscripts should have a corresponding private GitHub repository which we can link to an Overleaf project.}
+This is a good way to keep track of changes, and to ensure that we are all working on the most recent version of the manuscript.
+Versions of the manuscript corresponding to submission, revisions, and final should be tagged in the repository.
+You should keep a separate copy of the final latex source code saved elsewhere.
+
+When seeking feedback, consider carefully if your materials on hand are sufficient for a meaningful review to address your questions.
+This is dependent on the stage of writing.
+You should share outlines and story thoughts early and often for refinement.
+Drafts of manuscripts should be shared when appropriate for scientific review.
+Take care that English, grammar, and style are in good shape before sharing with me.
+I will get a poor impression of you if you are sloppy.
+If you have a tendency to just get me something rather than get me a quality product, resist that urge.
+I will just send it back to you.
+
+\subsection{Simulations}
+
+Most of our research requires simulations.
+It is best practice to share your code with the community upon publication of our results.
+By enuring that the code to reproduce work is available, we can ensure that our work is reproducible.
+All of the scripts for executing your project should live in a version controlled repository (e.g., github).
+The final publication should also have a link to a versioned Zenodo archive.
+Your code should be reasonably documented such that other's can understand it.
+I am not saying that it needs to be perfect and run perfectly out of the box, but a new student should be able to get it to work with a little effort and tweaking.
+
+To ensure that your code is valid, you should test it.
+Best practices are to develop unit tests and run them using some kind of continuous integration framework.
+The goal is again not to require 100\% code coverage in your tests, although this is nice, but the critical components or areas of common mistakes/bugs should be covered.
+
+If your reporting a new method development, you should be comparing it against other methods, or the current state-of-the-art.
+However, it is easy to pick a bad method to compare against and look good!
+Be fair and honest.
+When using another method, try to optimize it as if it were your own method, and do not just use the plain vanilla low-bar method to compare against.
+
+While running simulations, you should make figures and tables with parameters as you go along.
+Do not save these for the end.
+I promise you that if you do this early and well, you will find the process of publishing less painful, even enjoyable.
+
+\subsection{Presentations}
+If you make a presentation the night before, your audience will know it.
+It usually takes experienced researchers several weeks to create, ponder over, and practice a new and good talk.
+It should take you at least that much.
+Learn your talk and the transitions it requires.
+Our group meetings are a good place to practice; ask me if you would like further opportunities to present.
+Learn how to make slides - have less text, animate, one slide one point etc. Make meaningful titles.
+If you have the urge to show everything you have done, do not give in.
+If you are not going to talk about a plot, remove it from the slide.
+Presentations are not about how amazing or knowledgeable you are, or how much work you have done, it is about telling the most compelling story the simplest way.
+For very important talk, record your practice talk, and watch it and find ways to improve the delivery.
+If your talk goes well, folks will want to go read your papers.
+If your talk goes poorly, it will typically stick with you for a while.
+
+\subsection{Figure preparation}
+Creating good figures helps readers understand the paper better, and take away the main points.
+You need to ask yourself: 1.\@ ``What is an important result I need to visualize''?
+(e.g., convergence of a method, accuracy, long-term prediction, the workflow of the method, etc); then 2.\@ ``What is the best way to visualize it''?
+Making good figures takes time and creativity.
+
+Aesthetics are important.
+Humans are visual creatures and figures should be able to tell the story.
+I am not saying that figures have to be `pretty'--they have to be functional and communicate the point AND they have to be pleasing to the eye.
+Color choices matter and we should be mindful of colleagues who are colorblind.
+Make it a habit to plot axes labels in fonts that one can read, label the axes, and make sure you have units.
+Write a script if you need to ease and standardize the process.
+Show that you care.
+There are many online tools like draw.io that you can use to make flowcharts, we have access to Adobe Illustrator in our group for vector graphics, and Inkscape is free to use.
+Write scripts to automate figure making so that revisions are easy.
+When we write papers together, we will iterate on each panel many, many times.
+
+\subsection{Theory}
+
+For theoretical developments, it is important that you keep Latex notes of each step of your derivation and to share them with me.
+We all have individual preferences for how we do derivations.
+But, I am not not going to go through your notebook to check your math.
+Nor do I expect you to decipher my notes from my notebook.
+This is part of professional preparation.
+
+
+\subsection{Version control and data management}
+Our research data is owned by UCSD and therefore, there must be a complete copy that is accessible by me at all times.
+If something happens to me, then the officials at UCSD must be able to access the data.
+This is legal and binding and a critical part of the grant contract when the award is made.
+
+I expect that you use version control software (github) and frequently back up your data (writing, findings, codes, results) on a separate location that is accessible to me (e.g., our data storage server).
+It is also common to share the code that produced the results in the papers (e.g., as Jupyter notebooks, github repos).
+I expect you to learn this and use this from the start.
+
+You must use a viable back up solution for your data.
+There are so many options available, that there is no longer an excuse for losing research results anymore (even after rare hard drive failures, hacker attacks, etc.)
+.
+
+
+\section{Meetings}
+In general, it is good practice to come prepared with what you've done in the past couple of weeks (or since we last met), what worked, what didn't, why, how did you troubleshoot and what's next.
+Slides, data, code, papers are all good things, coming into a meeting without paper/pencil/laptop etc.\@ is not.
+Similarly, prepare for meetings with our many collaborators
+
+\subsection{Group Meetings}
+
+Lab meetings are not optional, they are a must-attend event.
+If you are in class for that quarter, let me know beforehand over email.
+Please do not have side conversations when someone is presenting.
+It is rude.
+If it is not your area of interest, try to learn, not look at your phone (that is also rude).
+Be on time.
+Lab meetings are both a chance to share works in progress and to practice giving talks.
+
+The slides must be made with the same standards as you would make them for a national conference talk.
+Your colleagues, all of us, are worthy of the same level of respect as colleagues outside the lab are.
+If your presentation is sloppy (missing labels, axes illegible or unreadable, missing titles, no background, key questions, conclusions, title), then the professional intention you are conveying is one of lack of respect for your audience's time, attention, and participation and wasting our work hours.
+And I know that none of you mean that.
+Folks with more experience (postdocs, senior students) will be held to a higher standard; this point should be self-explanatory.
+
+\subsection{One-on-one meetings}
+
+Our one-on-one meetings are dedicated to research discussion and career questions.
+We both want to get the most out of a meeting.
+For me, I would like to fully understand where you are at, which results you were able to get, and where you are currently stuck, so I can help.
+You probably have questions, want to bounce off some ideas or check if your logic in the argument is right, or ask me if I think a certain result is correct/not correct/needs improvement.
+
+In order for this to happen, you have to be prepared.
+Lay out a story for me so I can get caught up.
+If you show me things that did not work, I am always more impressed if you say ``Well A did not work, so I tried B, and C, and they also did not work, but I am not sure why''.
+Keep in mind that I have a diversity of tasks and deadlines to complete/meet and am often context switching.
+While I am used to switching quickly between tasks and I also take notes during our meetings, I really appreciate when you ``manage up'', e.g., remind me of the To-Dos from last week and how you dealt with them.
+
+If you do not have enough progress to show me, and you have no other reasons to meet (e.g., career questions, logistics, etc.)
+, then please cancel the meeting.
+This should not happen too often, but it is okay, especially during the quarter when you take classes, or after conferences or other commitments.
+This allows me to use that time for something else.
+
+\subsection{Meetings with collaborators}
+
+I should be copied on all emails that exchange of scientific information from our end.
+Decisions on collaborative projects and change in directions should be discussed by all parties involved and any potential perceived conflict should be discussed with me before it becomes unmanageable.
+If you have any concerns about a collaboration (scientific, professional, or otherwise) please bring them up with me privately so we can discuss and plan the best approach to address.
+
+\subsection{Conferences}
+
+You can attend if you have something to present.
+If you plan to submit an abstract, then generally, you should present a plan of how the paper will be complete before you present the work at a public forum.
+
+\begin{itemize}
+  \item If you want to submit an abstract, then I need to have a clean draft (after formatting, proofreading etc. ) by two weeks prior to the deadline.
+        My priority is to ensure that your papers get submitted/revised/turned around in a reasonable time frame.
+        Therefore, I will not work on last-minute deadlines and neither should you.
+        If I do not get an abstract from you two weeks before, I will assume that you are not going.
+  \item Before you write an abstract, think hard about what do you have to share with the community that is new research.
+        Generally, it is a good rule of thumb to aim to have the manuscript submitted before you attend the meeting.
+  \item Apply for any and all travel grants available internally at UCSD and through the conference.
+  \item Posters and presentations should be ready two weeks before the presentation date.
+        Again, if you cannot do that, you are not ready to present the work.
+        We will need enough lab meeting time to schedule practice talks etc.
+  \item I will sponsor one national conference a year per person if and only if you have something to present.
+\end{itemize}
+
+While traveling, please be considerate of the budget.
+We go to conferences to disseminate our science and broaden our perspectives, not to save money.
+Nevertheless, travel budgets on grants are limited and we should be mindful of this.
+
+\subsection{Seminars}
+
+Attend them, listen to the talk, and be respectful when asking questions.
+The university spends a lot of resources and effort bringing in speakers from across the world.
+You should utilize that to learn.
+
+\section{Interactions}
+
+\subsection{Lead time for requests from me}
+
+I usually cannot do things the night before.
+If you need anything from me, please give me sufficient lead time.
+If you have a deadline that affects your career plans, let me know and I will make time in my schedule.
+
+\begin{itemize}
+  \item Recommendation letters: In an email, give me at least 2 weeks notice plus an updated CV and your own application letter, position information, and let me know where I should send it.
+  \item Letters for graduate school and graduate fellowship applicants: 1 month at least lead time and 2 weeks of me having your documents, since many of the websites are not trivial to navigate.
+        You should discuss with me regardless which places you plan to apply to.
+  \item Journal papers: They typically do not have deadlines, so I will iterate with you until we are all satisfied.
+        Also know that the turn-around time for reviews can be quite slow, and if a paper is not accepted at one venue, we may need to revise it quite a bit to get it ready for a new submission elsewhere.
+  \item Conference abstracts (typically 200-400 words): I need to have a clean draft of your abstract (after formatting, proofreading etc. ) by two weeks prior to the deadline.
+        If I do not get an abstract from you two weeks before the deadline, I will assume that you are not going.
+  \item Fellowships (scientific aspects): These are a different beast altogether because this is not reporting work done but suggesting ideas worth pursuing.
+        A good fellowship application can take 3-4 months to develop.
+
+        Graduate students should start discussing ideas and jotting down bullet points by late summer and work with me on this.
+
+        Postdocs should discuss with me the nature of the fellowship and transition of ideas when they start their independent position.
+        But these also take 3-4 months to write.
+
+        If you are a US citizen, plan to apply for fellowships.
+        If not, you can still seek out fellowships internally and externally.
+        In both cases, seek out others who applied for or won the awards.
+\end{itemize}
+
+\subsection{Communication}
+
+In our group, we'll use the following modalities for professional communication:
+\begin{itemize}
+  \item Email - when writing to a group or about something that needs deeper thinking or response.
+        Be concise yet clear.
+  \item Slack - quick question that should not require a deep answer, the equivalent of knocking on my door.
+  \item In-person - anytime really but if a chunk of time is needed, I would appreciate some notice.
+\end{itemize}
+
+Any email I send you should be read in detail and with care.
+I will ask you to do things, read things, follow up with others, fill out forms, watch a lecture, etc. Once I send the email, I consider the task ``done'' on my end and I trust that you will follow up appropriately.
+My requests are reasonable and professional, so only if you have strong reasons why not to do them, please talk to me.
+
+\subsection{Interactions with group members}
+
+\begin{itemize}
+  \item Collaborate, do not compete.
+  \item Acknowledge that others want to help and assist with your research but respect their time.
+        Do not send others in the group sloppy work.
+  \item Communicate with other lab members about your research, particularly with similar projects.
+        You do not have to reinvent the wheel.
+        Particularly with group turnover, history can get lost.
+  \item Be respectful of others.
+  \item Be respectful of others' time and effort.
+  \item Being right and being kind are not mutually exclusive.
+\end{itemize}
+
+\subsection{Mentoring}
+
+If you wish to mentor an undergrad or high school student, let me know.
+It is a great opportunity to learn to work with someone and train them.
+It is also extremely rewarding.
+If you are mentoring someone, you are partially responsible for their success.
+No, they will not be like how you were when you were in their shoes.
+Everyone is different.
+
+\subsection{Transitions}
+
+Please plan ahead with me for transitions and leaving the lab.
+
+\begin{itemize}
+  \item Students should aim to publish all their papers before they graduate.
+        In the event that they are not published (when reviews took longer than average for that journal), you are expected to remain committed to working on getting them done even in your new position.
+        If you leave with unpublished work, the chances that I will finish it are low (close to zero).
+  \item If you end up doing a postdoc, the chances that a new PI will be happy to fund you to write your Ph.D. papers are low.
+  \item Postdocs coming in should not let their papers from their Ph.D. affect their progress in our lab.
+  \item Postdocs leaving my group should have explicit agreements with me on what, if any, ideas they can continue working on when they leave the group.
+        Having a candid conversation and parsing things out is the best way to go about it.
+\end{itemize}
+
+\subsection{Organization}
+
+\begin{itemize}
+  \item Keep records - organize reactions into tables with references, keep track of papers, keep documents in locations that are accessible to me.
+  \item Maintain orderly desk/space.
+        This is generally a good habit to form and will benefit you.
+  \item Add the lab calendar to your calendar.
+  \item Read your email and check the lab calendar.
+\end{itemize}
+
+\subsection{Professional conduct}
+Although universities tend to a relatively informal environment, it is still your workplace.
+Generally, it is good practice to conduct oneself in a professional manner at all times while at work.
+Simple things like being on time, following up after discussions, being reliable (if you say you will do something, do it), and limiting the time spent on social media or watching youtube at work are all good things.
+Taking breaks is important, but being on social media or watching videos all the time at work is not acceptable.
+It is important to recognize that academia is a small world; word spreads quickly about good and bad things.
+Watch what you say about your colleagues etc. What goes around comes around.
+
+\section{Time management}
+
+This is a big challenge in research because once you are outside the structure of classes, it is hard to organize one's day into the various demands.
+As a result, the common tendency is to get stuck, particularly with multiple projects and not make sufficient progress.
+
+\begin{itemize}
+  \item Use your calendar to block times for different activities and use it wisely.
+        Some people like to block morning time for writing, others like to do it late at night when no emails come in.
+  \item Focus sluts: 25-minute work, a 5-minute break is a good way to learn to focus.
+        Set aside distractions (phones, music, etc. ) for the 25 minute work period, turn off email and internet if needed.
+        It is called the Pomodoro method.
+        You do not need to use this method, there are others.
+        But you should find an approach that works for you.
+  \item Track your time: if you think you are working hard but not making progress, it likely means you are not working smart.
+        I strongly urge that you conduct the following exercise--for one week, keep track of every minute.
+        Your drive, your walk to the parking lot, the duration of your coffee breaks.
+        Input it in a spreadsheet and see how much you are doing really working.
+        You'll quickly find the leaks.
+  \item Do not abuse academic flexibility.
+        Just because this is not a 9-5 job does not mean you can be casual about it.
+        I will not micromanage your time because that is a waste of my time.
+        But I guarantee you it will show in our meetings.
+  \item You will need to work as much or as little to get your work done to meet the deadlines that we mutually agreed upon.
+        Some weeks we may Zoom after 8:30 pm, some weekends we may Zoom and some weeks will be more `normal'.
+        I really try to avoid outside the work day but there are a few and rare exceptions.
+  \item Use tools like your email, calendar, tasks to synchronize and make sure you do not miss anything.
+        As an example, when I get an email about something I need to do, I immediately add it to my google tasks list from my email window.
+        Gmail allows you to do that.
+        Then I set a due date a week before the deadline.
+        That way, I have some flexibility in case something unforeseen comes up and I do not make excuses.
+  \item Plan your week.
+        I sit down with my to-do list and my calendar every Sunday night and see what I am going to do when.
+        So my task list, my calendar, and my commitments are all aligned.
+        Blocks in your calendar are meetings with yourself, a commitment to your calendar.
+        They should be treated with the same respect that meetings with others deserve.
+\end{itemize}
+
+\textbf{Strategic Plans}
+Being strategic about achieving progress towards your goal pays off.
+I expect you to make a strategic plan 4x per year, for each academic quarter (and of course the summer period).
+As a first step, you break a grand goal you have (e.g., ``finish the paper'') into smaller SMART goals that are Specific, Measurable, Achievable, Relevant, and Time-bound.
+Then you organize actions each week that achieve these SMART goals.
+Then you do, as mentioned above, put these actions into your calendar and organize week-by-week.
+Please discuss with me, during the first week of each quarter, your goals and show me your strategic plan.
+
+\section{Vacation and Remote Work}
+
+\subsection{Vacations, remote work, extended absences}
+
+The aftermath of the COVID'19 pandemic has shown us new ways to arrange work-life balance by blending remote and in-person work.
+Separately, in 2023 the university went through a lengthy process with the unions that led to new GSR/TA contracts has reshaped how we look at graduate student employment.
+In light of both of these developments, to establish and maintain a productive research group culture that is reflective of the type of work we do (we are not experimentalists), I wanted to share a few policies regarding remote work, vacation, and leaves, of our lab going forward.
+
+\subsection{Official University Rules Regarding PTO}
+\begin{itemize}
+
+  \item Graduate Student Researchers (GSRs) accrue ``up to 12 workdays for a twelve-month period'' of Personal Time Off (PTO)\footnote{\url{https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/graduate-student-researchers/contract/}}.
+  \item Postdoctoral Scholars with a 100\%, 12-month appointment are eligible to use up to twenty-four (24) workdays of PTO with pay at any time within each 12-month appointment period\footnote{\url{https://ucnet.universityofcalifornia.edu/wp-content/uploads/2024/07/17-PERSONAL-TIME-OFF.pdf}}.
+  \item This is in addition to the standard (14) university holidays\footnote{\url{https://blink.ucsd.edu/HR/benefits/time-off/holidays.html}}.
+  \item TAs do not accrue vacation.
+        If a GSR appointment is followed by a TA appointment, and the GSR vacation is not taken, it voids.
+\end{itemize}
+
+\subsection{Our PTO Implementation}
+
+I encourage you to take vacation.
+For GSRs, your 12 days of PTO in addition to the 14 university-paid holidays amounts to 26 days of time off from work (regardless of if you are TA or not).
+I particularly encourage you to take a continuous two-week vacation to really plug off.
+Note that vacation is pro-rated based on the amount of time you are under contract.
+For example, if you take a six-month internship, then you have only one week of vacation for the other six months that you are a GSR.
+
+UCSD has a 1-week period between December 25 and January 2 (varies each year) called ``Winter Closure'', during which the university is essentially closed but it is not a paid university holiday.
+University staff (different from students/postdocs) are required to take their vacation at that time, so it is not possible to get anything done that requires the administration.
+So, this is a particularly good time for students to also take a vacation.
+
+Please ask me well in advance for approval via email (a 1-day PTO request needs less advance notice than a 3-week trip).
+We have project meetings, paper deadlines, conference abstract deadlines, visitors (PhD students, professors, research sponsors) and those need to be considered when approving vacation.
+Thus, not every PTO request can be fulfilled.
+
+Applying for jobs, interviews, etc. are on personal time.
+These should not happen on the grant time.
+
+Lastly, both Postdocs and GSRs must request PTO on \url{ecotimecampus.ucsd.edu}
+
+\subsection{ Setting and Maintaining a Learning and Working Culture: 3.5-day per week in-office minimum}
+
+Work flexibility is great to have in all stages of life.
+Although we have a a better learning and teaching environment if most people are in the office.
+There are many spontaneous interactions that happen in the office that are hard to replicate remotely.
+I consider a 3.5-day a week minimum appropriate.
+
+I also suggest one of you to organize a weekly lunch (whoever is in the office can go together and get lunch/bring lunch).
+
+\subsection{Remote work}
+Remote work blended with in-person work can create a very productive mix individually.
+However, I would like to take a moment to clarify the term work remote and differentiate it from ``being available at a different location''.
+Working remote means you are working the usual 8h per day, just from a remote location, where you are always logged into slack, can take a zoom call with short notice if I would like to talk to you, and that I expect a timely response to emails concerning research and projects.
+Successfully being able to work remotely means that in our weekly updates, the same amount of research progress takes place as if you were in the office (probably more because there are fewer distractions like commute, seminars, chats, and coffee breaks).
+
+As mentioned in the previous section, to start, I am okay for everyone to use 1.5 days per week of remote work.
+Some tasks may require being at home where no distractions happen.
+However, if I notice that you cannot productively work at home, then we will discuss that and potentially default to in-office work.
+
+``Working remote'' does not mean that you bring a computer and *can* log in for meetings, or occasionally check email before you go on hikes/activities. . . .
+When I see a work remote request in combination with wedding trips, family visits, etc., then I am wondering if you are in an 8h per day work mode?
+If not, then that is called vacation.
+That is fine, you should take vacation, work-life balance is important to all of us.
+But we should not use the term ``work remote'' as a catch-all for being away but accessible.
+
+\section{Exceptions -- life happens}
+Weddings, births, deaths, and life changes happen.
+If you have an event of life-altering nature, come talk to me so that I can support you.
+We can make a plan for your work as you navigate these things.
+Still, one cannot plan for everything but know that I can help and support where needed.
+If you do not say anything I assume that everything is fine.
+
+\section{Implicit and unconscious bias}
+\begin{itemize}
+  \item We are all biased.
+        It is human nature.
+        It is important that you recognize that we all have it and work actively against it.
+  \item Do not make assumptions about members about our group or anywhere because of their gender, ethnicity, religion, race, or language.
+  \item If you are unsure of how to phrase a question, ask them to help you out.
+  \item Apologize sincerely if you inadvertently offended someone and do not make the same mistake twice.
+  \item If you see biased behavior, speak up.
+        A silent bystander is as bad as a perpetrator.
+  \item Look out for each other.
+\end{itemize}
+
+\section{Acknowledgements}
+Thanks to Padmini Rangamani and Boris Kramer for sharing their lab expectations document, which served as a base and inspiration for me to write this one.
+Many thanks to also my mentors, advisors, and collaborators who clarified what to do but especially what not to do.
+
+\newpage
+
+\section{Practical tips for success in science}\label{sec:practical-tips}
+
+\textit{The following is a set of practical tips for success in science, by Andy McCammon.
+  I hope these tips will guide your thinking as you pursue science as they did mine when I was a graduate student in Andy's group.
+}
+
+\subsection*{Become an Expert at Something}
+
+Master at least one widely-applicable technique, and preferably two different techniques.
+A good example is molecular dynamics simulations.
+
+\subsection*{Pick Interesting Research Topics}
+
+Your research problems should be ones you're really dying to know answers to.
+They should also be something that any other scientist would be interested in.
+
+\subsection*{Work on Something that You can Complete}
+
+Your main project at any given time should be one that is well-defined and that is solvable within 6 months.
+As you become established you may want to add a second project of medium difficulty, and then one of greater difficulty that would have a very great impact if completed.
+
+\subsection*{Work Hard}
+
+Work not less than 60 hours per week and not more than 80 hours per week.
+Plan to do this through graduate school, postdoctoral study, and at least your first ten years in a permanent position.
+But to avoid burnout, and maintain a fresh perspective, it's not a bad idea to take a day off on a regular basis for hobbies and relaxation.
+
+\subsection*{Read}
+
+Roughly one half of your time (\thinsim30 hours/week) should be spent reading.
+Half of your reading should be immediately related to your current research; the other half should be potentially related to your current or future research.
+You should always be reading one textbook or monograph, and you should look at each issue of key journals and serials.
+Know how to read journals to extract the most useful information in the least time.
+
+\subsection*{Write}
+
+A bit more than half of your time (\thinsim30-40 hours/week) should be spent planning and conducting research.
+Plan your research from the outset using an outline of the article you hope to write.
+Step back from the details of your work once every couple of weeks to be sure what you're spending your hours on makes sense in terms of your plan for article writing.
+You need to write at least two really good papers per year, starting in the latter part of your graduate work.
+Learn how to write well.
+Use an outline, and be complete but concise.
+In planning the introduction to a paper, imagine that you are presenting the material in a lecture.
+This will help you present your story in an orderly fashion.
+It will also help you focus on the highlights.
+For style questions, consult Strunk \& White.
+
+\subsection*{Speak}
+
+Take advantage of opportunities to give lectures about your research.
+Preparing a talk helps you to review what you are doing, why you are doing it, and what you still need to do.
+In lecturing, look at the audience, not at the board or screen.
+Pretend you are talking to someone in the back row - that will help you speak loudly enough.
+Use more colorful pictures and fewer messy equations on your slides.
+
+\subsection*{Manage your Time}
+
+Set daily, weekly and long-term goals.
+Review your goals and progress frequently.
+If you are consistently falling short of your goals, try keeping track of how you actually spend your time for a few days.
+Use this inventory to help plan adjustments.
+Know when to be meticulous and when you can be sloppier.
+If you're banging your head against an obstacle in your research, step back, rethink the problem and try to go around the obstacle instead of through it.
+
+\subsection*{Leverage your Efforts}
+
+Always look for opportunities to get the maximum benefit from your efforts.
+For example, if you write a major grant proposal, think about writing a review article on the same subject afterward.
+You will have already collected many of the necessary references and written much of the material.
+
+\subsection*{Hoard Ideas}
+
+Whenever you have an idea for a possible research project, write it down immediately and save it in your Ideas Notebook.
+Review your ideas occasionally.
+Move the best ones to the front of your notebook and keep developing them.
+
+\subsection*{Consult Other Experts}
+
+When you run into a technical problem that's peripheral to your main research goal, consult someone who's an expert in that area instead of spending weeks trying to find and absorb all the relevant literature.
+
+\subsection*{Be Intensely Interested in Your Work}
+
+If you're not consumed by interest in your research project, pick another project.
+If you're not consumed by interest in some project, pick another career.
+
+\subsection*{Work on Two Different Projects at the Same Time}
+
+As soon as your main, straightforward project is underway, start on your second, slightly more ambitious project.
+If you run into problems with one project, you can set it aside for a day or two while you work on the other one.
+Then you can take a fresh look at the troublesome project.
+
+\subsection*{Don't Work on More than Three Projects at the Same Time}
+
+If you do, you won't get enough done on any one of them.
+
+\subsection*{Be Ambitious and Reasonably Aggressive}
+
+If you aim for a higher-level position, it increases the chance that you'll find a job in a tough, competitive market.
+Advertise your accomplishments in tasteful but unmistakable ways.
+
+\subsection*{Be Persistent}
+
+Everyone has bad days, sometimes even bad weeks, when no progress seems to be made.
+But if you keep at it, that day will come when things suddenly start to move or you think of a useful new approach.
+
+% \newpage
+% \normalem
+% \printbibliography[title={References Cited}]
+% \ULforem
+\end{document}
