@@ -3,7 +3,7 @@ name: Build latex document and deploy to wiki
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    # branches: ["main"]
     tags:
       - 'v[0-9].[0-9]+.[0-9]+*'
 
@@ -52,11 +52,11 @@ jobs:
       - name: Download artifact
         # Downloads the artifact from the previous job
         uses: actions/download-artifact@v4
-      - name: unpack
+      - name: Print files
         run: |
-          tar -xvf github-pages/artifact.tar
-
+          ls -R
+      
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ctleelab-expectations-conduct.pdf
+          files: artifact/ctleelab-expectations-conduct.pdf
