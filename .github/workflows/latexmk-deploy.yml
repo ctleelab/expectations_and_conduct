@@ -20,6 +20,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
   # Build job
   build:
