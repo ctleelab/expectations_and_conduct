@@ -30,6 +30,10 @@ jobs:
         with:
           root_file: ctleelab-expectations-conduct.tex
           latexmk_use_lualatex: true
+          pre_compile: |
+            apk add msttcorefonts-installer fontconfig
+            update-ms-fonts
+            fc-cache -f
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
