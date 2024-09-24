@@ -1,1 +1,1 @@
-# expectations_and_conduct
+# Latex source for ctleelab expectations and code of conduct
